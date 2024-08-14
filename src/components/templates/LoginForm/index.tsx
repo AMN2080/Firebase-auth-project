@@ -10,7 +10,9 @@ export default function LoginForm() {
   } = useForm<LoginType>({
     resolver: zodResolver(LoginSchema),
   });
+
   const onSubmit: SubmitHandler<LoginType> = (data) => console.log(data);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

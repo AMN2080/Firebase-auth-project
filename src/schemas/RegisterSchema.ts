@@ -16,6 +16,9 @@ export const RegisterSchema = z
         "Password must be at least 8 characters long and contain at least one letter and one number",
       ),
     confirmPassword: z.string().min(1, "Please confirm your password"),
+    rules: z.boolean().refine((v) => v === true, {
+      message: "Please agree to the terms and conditions",
+    }),
   })
   .refine((data) => data.password === data.confirmPassword, {
     path: ["confirmPassword"],
