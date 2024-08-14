@@ -1,4 +1,4 @@
-import { LoginForm, RegisterForm, MainPage } from "./components/templates";
+import { LoginForm, RegisterForm, MainPage } from "./pages";
 
 const routes = [
   {
