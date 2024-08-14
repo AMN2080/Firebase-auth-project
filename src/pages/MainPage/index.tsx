@@ -1,3 +1,3 @@
 export default function MainPage() {
-  return <></>;
+  return <p className="text-yellow-500">welcome</p>;
 }
