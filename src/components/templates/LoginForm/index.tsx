@@ -1,7 +1,23 @@
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoginSchema, LoginType } from "../../../schemas/LoginSchema";
+
 export default function LoginForm() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginType>({
+    resolver: zodResolver(LoginSchema),
+  });
+  const onSubmit: SubmitHandler<LoginType> = (data) => console.log(data);
   return (
-    <form className="w-96 p-10 bg-slate-100 shadow-lg rounded-3xl flex flex-col gap-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="w-96 p-10 bg-slate-100 shadow-lg rounded-3xl flex flex-col gap-5"
+    >
       <div className="flex flex-col">
+        {errors.email && <p className="text-red-500">{errors.email.message}</p>}
         <label htmlFor="email" className="ml-4">
           Email
         </label>
@@ -9,10 +25,14 @@ export default function LoginForm() {
           id="email"
           placeholder="Email address"
           type="text"
+          {...register("email")}
           className="w-full h-10 outline-none rounded-3xl border px-2 text-center"
         />
       </div>
       <div className="flex flex-col">
+        {errors.password && (
+          <p className="text-red-500">{errors.password.message}</p>
+        )}
         <label htmlFor="password" className="ml-4">
           Password
         </label>
@@ -20,6 +40,7 @@ export default function LoginForm() {
           id="password"
           placeholder="Password"
           type="password"
+          {...register("password")}
           className="w-full h-10 outline-none rounded-3xl border px-2 text-center"
         />
       </div>
