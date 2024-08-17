@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema, RegisterType } from "../../../schemas/RegisterSchema";
+import { doCreateUserWithEmailAndPassword } from "../../../firebase/auth";
 
 export default function RegisterForm() {
   const {
@@ -11,7 +12,10 @@ export default function RegisterForm() {
     resolver: zodResolver(RegisterSchema),
   });
 
-  const onSubmit: SubmitHandler<RegisterType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegisterType> = async ({ email, password }) => {
+    const result = await doCreateUserWithEmailAndPassword(email, password);
+    console.log(result);
+  };
 
   return (
     <form
